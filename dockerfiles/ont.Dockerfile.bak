@@ -1,0 +1,55 @@
+FROM continuumio/miniconda3:latest
+
+### SOFTWARE VERSIONS ---------------------- ###
+
+ARG DORADO=0.7.2
+ARG MINIMAP2=2.28
+ARG MODKIT=0.3.3
+ARG SAMTOOLS=1.20
+
+### UPDATING CONDA ------------------------- ###
+
+RUN conda update -y conda
+
+### INSTALLING PIPELINE PACKAGES ----------- ###
+
+# Adding bioconda to the list of channels
+RUN conda config --add channels bioconda
+
+# Adding conda-forge to the list of channels
+RUN conda config --add channels conda-forge
+
+# Installing mamba
+RUN conda install -y mamba
+
+# Installing software
+RUN mamba install -y \
+    hcc::dorado=${DORADO} \
+    hcc::dorado-gpu=${DORADO} \
+    git \
+    h5py \
+    minimap2=${MINIMAP2} \
+    ont-fast5-api \
+    ont-modkit=${MODKIT} \
+    numba \
+    numpy \
+    pandas \
+    pysam \
+    pytorch \
+    samtools=${SAMTOOLS} \
+    tqdm && \
+    conda clean -afty
+
+RUN pip install pod5
+
+# Downloading pb-CpG-tools binaries
+RUN cd /opt && \
+    git clone https://github.com/WGLab/DeepMod2.git
+
+### SETTING WORKING ENVIRONMENT ------------ ###
+
+# Set workdir to /home/
+WORKDIR /home/
+
+# Launch bash automatically
+CMD ["/bin/bash"]

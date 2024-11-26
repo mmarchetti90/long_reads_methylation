@@ -1,0 +1,3 @@
+sample	bam_path
+1_A01_K1000_01	/scratch/ucgd/lustre/UCGD_Datahub/IRBs/IRB_00125940/Staging/PacBio_Data/K1000/1_A01_K1000_01/m64273e_220406_200749.subreads.bam
+2_B01_K1000_01	/scratch/ucgd/lustre/UCGD_Datahub/IRBs/IRB_00125940/Staging/PacBio_Data/K1000/2_B01_K1000_01/m64273e_220408_070258.subreads.bam
